@@ -20,12 +20,12 @@ INDEX_DIR='/data/users/hfatinikun/RNA-Seq-Course/Reference_genome'
 READS_DIR="/data/courses/rnaseq_course/breastcancer_de/reads"
 MAPPED_READS='/data/users/hfatinikun/RNA-Seq-Course/mapping' #Path to save mapped reads
 
-#Paths to the Reads samplenames for the mappi
+#Paths to the Reads samplenames for the mapping
 SAMPLE=`awk -v line=$SLURM_ARRAY_TASK_ID 'NR==line{print $1; exit}' $SAMPLELIST`
 READ1=`awk -v line=$SLURM_ARRAY_TASK_ID 'NR==line{print $2; exit}' $SAMPLELIST`
 READ2=`awk -v line=$SLURM_ARRAY_TASK_ID 'NR==line{print $3; exit}' $SAMPLELIST`
 
-#map reads
+#Map reads
 apptainer exec --bind /data/ $APPTAINER_IMG hisat2 -x $INDEX_BASENAME -1 $READ1 -2 $READ2 -S $MAPPED_READS/$SAMPLE.sam -p 4
 
 BAM_DIR='/data/users/hfatinikun/RNA-Seq-Course/mapping/BAM_Files'
